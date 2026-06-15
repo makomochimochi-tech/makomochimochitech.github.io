@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>私立片岡高等学校</title>
+
+<style>
+body{
+    margin:0;
+    font-family:sans-serif;
+    background:#f4f6f8;
+}
+
+header{
+    background:#0b2a4a;
+    color:white;
+    padding:14px;
+}
+
+nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    padding:10px;
+    background:#e9eef3;
+}
+
+nav button{
+    padding:8px;
+    border:none;
+    background:white;
+    border-radius:6px;
+}
+
+main{
+    padding:14px;
+}
+
+.card{
+    background:white;
+    padding:12px;
+    margin-bottom:10px;
+    border-left:4px solid #0b2a4a;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    font-size:16px;
+    margin-bottom:8px;
+}
+
+button.action{
+    width:100%;
+    padding:10px;
+    background:#0b2a4a;
+    color:white;
+    border:none;
+    border-radius:6px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>私立片岡高等学校</h1>
+</header>
+
+<nav>
+<button onclick="go('home')">トップ</button>
+<button onclick="go('about')">学校案内</button>
+<button onclick="go('clubs')">部活動</button>
+<button onclick="go('pc')">PC部</button>
+<button onclick="go('search')">サイト内検索</button>
+</nav>
+
+<main id="app"></main>
+
+<script>
+
+let discovered = [];
+
+function go(page){
+    render(page);
+}
+
+/* -----------------------
+   ページ描画
+------------------------*/
+
+function render(page){
+
+let html = "";
+
+/* HOME */
+if(page === "home"){
+
+html = `
+<div class="card">
+<h2>お知らせ</h2>
+<p>文化祭開催のお知らせ</p>
+<p>部活動体験会について</p>
+<p>第39回慰霊祭を実施しました</p>
+</div>
+
+<div class="card">
+<p>本校WebサイトはPC部が管理しています</p>
+</div>
+`;
+
+}
+
+/* 学校案内 */
+if(page === "about"){
+
+html = `
+<div class="card">
+<h2>学校案内</h2>
+
+<p>
+本校では教育活動の一環として、
+「ルクスレイヤ」「白明回廊」「第七観測領域」などの
+概念的学習要素を導入しています。
+</p>
+
+<p>
+これらの用語は校内規定に基づき、
+適切な範囲で使用されています。
+</p>
+</div>
+`;
+
+}
+
+/* 部活動 */
+if(page === "clubs"){
+
+html = `
+<div class="card">
+<h2>部活動</h2>
+<p>野球部 / 吹奏楽部 / 写真部 / PC部</p>
+
+<p>
+各部活動は学校の教育方針に従い、
+活動内容を適切に公開しています。
+</p>
+</div>
+`;
+
+}
+
+/* PC部 */
+if(page === "pc"){
+
+html = `
+<div class="card">
+<h2>PC部</h2>
+
+<p>
+PC部は学校Webサイトの制作および管理を担当しています。
+</p>
+
+<p>
+サイト内で使用される表現は、
+校内規定に基づき統一されています。
+</p>
+
+<p>
+例として、
+「ルクスレイヤ」「白明回廊」「第七観測領域」
+などの用語が該当します。
+</p>
+
+<p>
+これらは教育資料として扱われており、
+必要に応じて参照されています。
+</p>
+</div>
+`;
+
+}
+
+/* 検索 */
+if(page === "search"){
+
+html = `
+<div class="card">
+<h2>サイト内検索</h2>
+
+<input id="q" placeholder="キーワード">
+<button class="action" onclick="search()">検索</button>
+
+<div id="result"></div>
+</div>
+`;
+
+}
+
+document.getElementById("app").innerHTML = html;
+
+}
+
+/* -----------------------
+   検索
+------------------------*/
+
+function search(){
+
+const q = document.getElementById("q").value.trim();
+const result = document.getElementById("result");
+
+/* 記録 */
+if(!discovered.includes(q)){
+discovered.push(q);
+}
+
+/* 基本反応 */
+result.innerHTML = `
+<p>「${q}」の検索結果：</p>
+<p>該当するページを表示しました。</p>
+`;
+
+/* 進行による反応（説明なし） */
+
+if(discovered.includes("ルクスレイヤ")){
+result.innerHTML += `<p>関連情報が参照されています。</p>`;
+}
+
+if(discovered.includes("白明回廊")){
+result.innerHTML += `<p>一部の記録は連携対象です。</p>`;
+}
+
+if(discovered.includes("第七観測領域")){
+result.innerHTML += `<p>規定上の分類に従い処理されています。</p>`;
+}
+
+}
+
+render("home");
+
+</script>
+
+</body>
+</html>
